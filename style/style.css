@@ -1,0 +1,137 @@
+
+/* Site général */
+/* ************ */
+html, body { height: 98%; }
+#wrap { padding-bottom: 60px; }
+.page {
+	min-height: 100%;
+	position: relative;
+}
+section { min-height: 100%; position: relative; margin: auto; }
+#header {  }
+#nav { background: #99acbd; width: 100%; }
+#nav.fixed { 
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+	position: fixed;
+	top: 0;
+	z-index: 99998;
+}
+#nav ul {
+    list-style: none outside none;
+    margin: 0;
+    padding: 10px;
+}
+#nav ul li {
+    display: inline-block;
+    padding: 0 2px 0 0;
+}
+#nav ul li a {
+    color: #333333;
+    display: block;
+    padding: 0 25px;
+}
+footer {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+  text-align: center;
+  background: #b8b296;
+  padding: 20px 0;
+}
+#article { overflow:auto; padding-bottom: 50px }
+.titre_haut { text-align: center; margin: 20px 0 0 0; font-size: 4em; }
+
+div.btn_center { margin: auto; text-align: center; }
+div.margin-form { padding: 0 0 1em 0; font-size: 1em; }
+div.wrap { margin-left: 30px; }
+
+.button { 
+	color: white;
+	background-color: #99acbd;
+	border: 2px #99acbd outset;
+	padding: 1px 4px;
+	text-decoration: none;
+	font-family:"Lucida Grande", "Trebuchet MS", Verdana, Helvetica, sans-serif;
+	font-weight:bold;
+	font-size:0.95em;
+}
+.button:visited { color: white; }
+.button:hover {
+	border-style: inset;
+	background-color: #8ED3F5;
+	padding: 2px 3px 0 5px; /* déplacement du texte d'un pixel à droite et en bas */
+}
+
+.dimension:active{
+color: white;
+}
+
+
+
+/* Page Centrale */
+/* ************* */
+div.donnees {
+	float:	left;
+	padding: 0 20px;
+	border-width:1px;
+	border-style:dotted;
+	border-color:black;
+	text-align: center;
+}
+
+p { font-size: 1em; }
+
+.allume {
+	text-decoration: none;
+	font-weight: bold;
+	color: green;
+}
+
+.eteind {
+	text-decoration: none;
+	font-weight: bold;
+	color: red;
+}
+
+/* Style de titre des relevés */
+.titre_rel { font-weight: bold; } 
+
+/* Style des titres */
+.titre1 { margin-left: 30px; font-size: 1.6em; }
+
+/* Bandeau information */
+#text_enrg { font-size: 1.6em; }
+#info_enrg {
+	display: none;
+	width: 95%;
+	height: 80px;
+	position: fixed;
+	top: 0;
+	margin: 0 auto;
+	/* left: 0; */
+	text-align: center;
+	z-index: 99999;
+}
+
+/* **************** */
+/* Style responsive */
+/* **************** */
+@media screen and (max-width: 500px) {
+	p { font-size: 1.8em; }
+	.titre1 { font-size: 1.6em; }
+	#nav.fixed { position: relative; }
+	#nav ul li { font-size: 1em; display: block; padding: 3px 0; text-align: center; }
+	#nav ul li a { font-size: 1em; padding: 3px 0; text-align: center; font-weight: bold; }
+}
+
+@media screen and (max-device-width: 500px) {
+	/* body { zoom: 2; } */
+	#text_enrg { font-size: 1.8em; }
+	p { font-size: 1.8em; }
+	.titre1 { font-size: 1.6em; }
+	#nav.fixed { position: relative; }
+	#nav ul li { font-size: 1.8em; display: block; padding: 3px 0; text-align: center; }
+	#nav ul li a { font-size: 1.8em; padding: 3px 0; text-align: center; font-weight: bold; }
+}
+
