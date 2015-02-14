@@ -3,7 +3,7 @@
 /* Test si le fichier "config.inc.php" peut être modifié en écriture par Php */
 $filename = "config.inc.php";
 if(!is_writable($filename)) {
-	echo '<p style="font-weight:bold;color:red;">ATTENTION : Le fichier "config.inc.php" n\'est pas accessible en écriture.<br />';
+	echo '<p style="font-weight:bold;color:red;">ATTENTION : Le fichier "config.inc.php" n\'est pas accessible en écriture par le serveur Web.<br />';
 	echo 'Veuillez modifier les droits du fichier afin de pouvoir utiliser cette page de configuration.';
 }
 

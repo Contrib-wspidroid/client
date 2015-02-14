@@ -19,12 +19,13 @@ Fin du minimum */
 
 /* Initialisation des variables de configuration */
 require("config.inc.php");
+$WS_OK = true;
 
 /* Déclaration du webService */
 include('lib/nusoap.php');
 ini_set("soap.wsdl_cache_enabled", "0");
 $client = new nusoap_client($WS_adresse.'wspi.php?wsdl');
-	
+
 	
 /* Fonction cliente permettant de changer l'état d'un port GPIO */
 /* Valeur envoyée : $pin = N° WiringPi : $valeur = 0 pour etteindre, 1 pour allumer */
@@ -100,6 +101,7 @@ if ($_GET['envoi'] == "OK") {
 	clientEcritWeb($_GET['wiringpi'], $_GET['action']);
 }
 $materiels = listeMateriel($lireEtat); 
+if ($client->getError()) $WS_OK = false;
 echo '<div class="wrap">';
 if (is_array($materiels)) {
 	foreach ($materiels as $materiel) {
@@ -126,13 +128,13 @@ echo '<p style="clear:both">&nbsp;</p><hr /><p>&nbsp;</p>';
 /* ***************** Relevé des températures ********************** */
 /* **************************************************************** */
 echo '<h1 class="titre1">Relevé des températures</h1>';
-$releves = temperatureTab();
+if ($WS_OK) $releves = temperatureTab();
 echo '<div class="wrap">';
 if (is_array($releves)) {
 	foreach ($releves as $releve) 
 		echo '<div class="donnees"><p class="titre_rel">'. $releve['nom'] . '</p><p>'. $releve['valeur'] . ' °C</p></div>';
 } else echo "<p>Pas de retour, soit il n'existe aucun capteur de température, soit le WebService ne répond pas</p>";
-echo '<p style="clear:both"><br /><a class="button" href="?envoi=temperature">Mise à jour des températures</a></p>';
+echo '<p style="clear:both"><br />'.($WS_OK ? '<a class="button" href="?envoi=temperature">Mise à jour des températures</a>':'').'</p>';
 echo '</div>';
 echo '<hr /><p>&nbsp;</p>';
 /* ************** Fin de Relevé des températures ******************* */
@@ -146,7 +148,7 @@ echo '<div class="wrap">';
 /* ***************** Script Guirlande de noel ********************** */
 /* ***************************************************************** */
 if ($_GET['envoi'] == "noel") noel();
-echo '<p><a href="?envoi=noel">Guirlande de Noël</a></p>';
+echo '<p>'.($WS_OK ? '<a href="?envoi=noel">Guirlande de Noël</a>':'').'</p>';
 /* ***************** Fin de Guirlande de noel ********************** */
 /* ***************************************************************** */
 
@@ -154,8 +156,10 @@ echo '<p><a href="?envoi=noel">Guirlande de Noël</a></p>';
 /* ********** Commande d'arret ou de Reboot du Raspberry *********** */
 /* ***************************************************************** */
 if ($_GET['envoi'] == "cde") commande($_GET['commande']);
-echo '<p><a class="button" href="?envoi=cde&commande=halt">Arrêt du Raspberry</a></p>';
-echo '<p><a class="button" href="?envoi=cde&commande=reboot">Reboot du Raspberry</a></p>';
+if ($WS_OK) {
+	echo '<p><a class="button" href="?envoi=cde&commande=halt">Arrêt du Raspberry</a></p>';
+	echo '<p><a class="button" href="?envoi=cde&commande=reboot">Reboot du Raspberry</a></p>';
+} else echo "<p>Le WebService ne répond pas</p>";
 /* ****************** Fin de Commande d'arrêt ********************** */
 /* ***************************************************************** */
 echo '</div>';
