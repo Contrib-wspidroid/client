@@ -33,7 +33,13 @@ fwrite($fichier, "\t\$lireEtat \t= Mettre 1 en parametre pour lire les valeurs e
 fwrite($fichier, "/* Initialisation des variables */\n");
 fwrite($fichier, "\$WS_adresse = '".$_POST['WS_adresse']."';\n");
 fwrite($fichier, "\$Token = '".$_POST['Token']."';\n");
-fwrite($fichier, "\$lireEtat = ".$_POST['lireEtat'].";\n");
+fwrite($fichier, "\$lireEtat = ".$_POST['lireEtat'].";\n\n");
+/*    Authentification   */
+/* ********************* */
+fwrite($fichier, "/* Authentification */\n");
+fwrite($fichier, "\$AutoConnect = ".($_POST['AutoConnect']=="1" ? '1' : '0').";\n");
+fwrite($fichier, "\$login = '".$_POST['login']."';\n");
+fwrite($fichier, "\$pwd = '".$_POST['pwd']."';\n\n");
 
 /*
 // écriture des variables du formulaire

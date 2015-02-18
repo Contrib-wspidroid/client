@@ -10,13 +10,13 @@ if(!is_writable($filename)) {
 /* Initialisation des variables de configuration */
 require("config.inc.php");
 
-echo '<h1 class="titre1">Configuration de l\'application</h1>';
-
 echo '<div class="wrap">';
 echo '
 		<form action="'.$_SERVER['REQUEST_URI'].'" id="formConfig" name="formConfig" method="post">
-			<input type="hidden" name="secure_key" id="secure_key" value="'.$Token.'" />
-
+			<input type="hidden" name="secure_key" id="secure_key" value="'.$Token.'" />';
+			
+		echo '<h1 class="titre1">Configuration de l\'application</h1>';
+		echo '
 			<label>Adresse du serveur WsPiDroid</label>
 			<div class="margin-form">
 				<input size="80" type="text" name="WS_adresse" id="WS_adresse" value="'.$WS_adresse.'"></div>
@@ -25,8 +25,17 @@ echo '
 				<input size="40" type="text" name="Token" id="Token" value="'.$Token.'"></div>
 			<label for="lireEtat">Lecture des valeurs GPIO au chargement de page</label>
 			<div class="margin-form">
-				<input size="5" type="text" name="lireEtat" id="lireEtat" value="'.$lireEtat.'"></div>
-			
+				<input size="5" type="text" name="lireEtat" id="lireEtat" value="'.$lireEtat.'"></div>';
+		
+		echo '<h1 class="titre1">Identification à l\'application</h1>';
+		echo '
+			<div class="">Auto-connexion (pas de sécurité) : <input type="checkbox" id="AutoConnect" name="AutoConnect" value="1" '.($AutoConnect==1 ? ' checked ="checked "' :'').' /><br />&nbsp;</div>
+			<div>
+				<div class="divlabel"><label>Votre login : </label></div><div class="divinput"><input type="text" id="login" name="login" value="'.($login!="" ? $login :'').'" /></div>
+				<div class="divlabel"><label>Votre mot de passe : </label></div><div class="divinput"><input type="password" id="pwd" name="pwd" value="'.($pwd!="" ? $pwd :'').'" /></div>
+			</div>';
+		
+		echo '
 			<div class="btn_center">
 				<a class="button" href="javascript:void(0)" name="submitformConfig" id="submitformConfig" style="cursor: pointer; margin-left: 20px" 
 					onClick="javascript:majConfigInc(\'config.mod.php\', \'text_enrg\'); return;" />

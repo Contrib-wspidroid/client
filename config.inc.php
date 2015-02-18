@@ -15,4 +15,9 @@ $WS_adresse = 'http://192.168.0.5/pidroid/';
 $Token = 'DP37TFJTXXX';
 $lireEtat = 1;
 
+/* Authentification */
+$AutoConnect = 1;
+$login = 'domi';
+$pwd = 'test';
+
 ?>
