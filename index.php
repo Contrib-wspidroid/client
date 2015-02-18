@@ -71,6 +71,7 @@
 		<div class="site-cache" id="site-cache"></div>
 		
 	</div>
+	<div class="info_enrg" id="info_enrg"><h2 class="text_enrg" id="text_enrg"></h2>
 </div>
 <script type="text/javascript" src="js/ouvre_menu.js"></script>
 </body>
