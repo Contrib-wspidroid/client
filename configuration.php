@@ -22,14 +22,14 @@ echo '
 				<input size="80" type="text" name="WS_adresse" id="WS_adresse" value="'.$WS_adresse.'"></div>
 			<label for="Token">Clé de sécurité du Web-Service</label>
 			<div class="margin-form">
-				<input size="40" type="text" name="Token" id="Token" value="'.$Token.'"></div>
-			<label for="lireEtat">Lecture des valeurs GPIO au chargement de page</label>
-			<div class="margin-form">
-				<input size="5" type="text" name="lireEtat" id="lireEtat" value="'.$lireEtat.'"></div>';
+				<input size="40" type="text" name="Token" id="Token" value="'.$Token.'"><br />
+				Attention : Si vous changez cette clé il faut également la changer sur le Web-Service.</div>
+			<div class="divchecked">Lecture des valeurs GPIO au chargement de page <input type="checkbox" id="lireEtat" name="lireEtat" value="1" '.($lireEtat==1 ? ' checked ="checked "' :'').' /><br />&nbsp;</div>
+			';
 		
 		echo '<h1 class="titre1">Identification à l\'application</h1>';
 		echo '
-			<div class="">Auto-connexion (pas de sécurité) : <input type="checkbox" id="AutoConnect" name="AutoConnect" value="1" '.($AutoConnect==1 ? ' checked ="checked "' :'').' /><br />&nbsp;</div>
+			<div class="divchecked">Auto-connexion (pas de sécurité) : <input type="checkbox" id="AutoConnect" name="AutoConnect" value="1" '.($AutoConnect==1 ? ' checked ="checked "' :'').' /><br />&nbsp;</div>
 			<div>
 				<div class="divlabel"><label>Votre login : </label></div><div class="divinput"><input type="text" id="login" name="login" value="'.($login!="" ? $login :'').'" /></div>
 				<div class="divlabel"><label>Votre mot de passe : </label></div><div class="divinput"><input type="password" id="pwd" name="pwd" value="'.($pwd!="" ? $pwd :'').'" /></div>

@@ -3,8 +3,10 @@ function majConfigInc(varLien, varObjID_msg) {
 	var varSecure_key =  document.getElementById('secure_key').value;
 	var varWS_adresse =  document.getElementById('WS_adresse').value;
 	var varToken =  document.getElementById('Token').value;
-	var varlireEtat =  document.getElementById('lireEtat').value;
-	var varAutoConnect =  document.getElementById('AutoConnect').value;
+	var varlireEtat =  document.getElementById('lireEtat').checked;
+	if (varlireEtat == true) { varlireEtat = 1; } else { varlireEtat = 0; }
+	var varAutoConnect =  document.getElementById('AutoConnect').checked ;
+	if (varAutoConnect == true) { varAutoConnect = 1; } else { varAutoConnect = 0; }
 	var varlogin =  document.getElementById('login').value;
 	var varpwd =  document.getElementById('pwd').value;
 	$.ajax({
