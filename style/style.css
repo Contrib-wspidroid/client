@@ -96,6 +96,9 @@ p { font-size: 1em; }
 	z-index: 99999;
 }
 
+/* Combo Psutil */
+.cbo-psutil { margin-right: 15px; }
+
 
 /* Page Authentification */
 /* ********************* */

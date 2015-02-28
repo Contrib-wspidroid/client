@@ -19,12 +19,12 @@ Le client Web écrit en Php est de type Responsive. Cet technologie permet ainsi
 
 ## Fonctionnalités Utilisateurs
  - Lecture des ports GPIO déclarés dans le Web-Service
- - Ecriture sur les ports GPIO (marche ou arrêt)
+ - Ecriture sur les ports GPIO (marche ou arrêt) Via technologie Ajax.
  - Lecture des sondes de température de type DS18b20 utilisant le bus "**1-wire**" du Raspberry Pi.
  - Arrêt "propre" (shutdown) ou Reboot du Raspberry Pi
  - Identification ou pas pour accèder à l'interface.
 
-## Fonctionnalités Technique
+## Fonctionnalités Techniques
  - Ecrit en PHP
  - Utilise la technologie Ajax
  - Théme Responsive
