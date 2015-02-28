@@ -160,7 +160,7 @@ if ($WS_OK) {
 						<option value="psutil.cpu_times_percent()">Toutes les informations de consommation CPU</option>
 					</optgroup>
 					<optgroup label="Mémoire">
-						<option value="psutil.virtual_memory()[2]">Utilisée en %</option>
+						<option value="psutil.virtual_memory()[2]">Mémoire Utilisée en %</option>
 						<option value="psutil.virtual_memory()[0]">Mémoire totale</option>
 						<option value="psutil.virtual_memory()[3]">Mémoire utilisée</option>
 						<option value="psutil.virtual_memory()[4]">Mémoire libre</option>
@@ -168,7 +168,7 @@ if ($WS_OK) {
 						<option value="psutil.virtual_memory()">Toutes les informations sur la mémoire</option>
 					</optgroup>
 					<optgroup label="Swap">
-						<option value="psutil.swap_memory()[3]">Utilisée en %</option>
+						<option value="psutil.swap_memory()[3]">Swap Utilisée en %</option>
 						<option value="psutil.swap_memory()[0]">Swap totale</option>
 						<option value="psutil.swap_memory()[2]">Swap utilisée</option>
 						<option value="psutil.swap_memory()[4]">Swap libre</option>
