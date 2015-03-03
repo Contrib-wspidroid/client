@@ -102,23 +102,56 @@ p { font-size: 1em; }
 
 /* Page Authentification */
 /* ********************* */
-.divopaque { background-color: rgba(0, 0, 0, 0.6); width: 100%; height: 100%; }
+.divopaque { /* background-color: rgba(0, 0, 0, 0.6); */ width: 100%; height: 100%; }
 div.centre {
     position:absolute;
     left: 50%;
     top: 50%;
     width: 400px;
-    height: 130px;
-    margin-left: -216px; /* Cette valeur doit être la moitié négative de la valeur du width + le padding */
-    margin-top: -76px; /* Cette valeur doit être la moitié négative de la valeur du height + le padding */
-	padding: 16px;
-	border: 1px #000 solid;
-	background-color: #f1f1f1;
+    /* height: 130px; */
+    margin-left: -217px; /* Cette valeur doit être la moitié négative de la valeur du width + le padding + le border */
+    margin-top: -167px; /* Cette valeur doit être la moitié négative de la valeur du height + le padding + le border */
+		padding: 16px;
+		border: 1px #000 solid;
+		background-color: #f1f1f1; 
 }
-.centre .titre { text-align: center; font-weight: bold; }
-.divlabel { width: 160px; float: left; }
-.divinput { margin: 10px 0; }
-.diverreur { font-size: 12px; margin-top: 6px; color: red; font-weight: 300; }
+.formConnect { max-width: 330px; padding: 15px; margin: 0 auto; }
+.centre .titre { text-align: center; font-weight: bold; font-size: 30px; font-weight: 500; }
+/* .divlabel { width: 160px; float: left; } */
+.divinput { margin: 20px auto; text-align: center; }
+.diverreur { font-size: 14px; margin-top: 6px; color: red; font-weight: 300; text-align: center; }
+.btnConnect { color: #fff;
+	background-color: #428bca;
+	border-color: #357ebd;
+	padding: 10px 16px;
+	font-size: 18px;
+	line-height: 1.33;
+	border-radius: 6px;
+	display: block;
+	width: 100%;
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+.btnConnect:hover { cursor: pointer; background-color: rgb(37, 102, 228); }
+.formConnect input[type="text"],
+.formConnect input[type="password"] {
+	position: relative;
+	font-size: 16px;
+	height: auto;
+	padding: 10px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	font-family: inherit;
+	font-size: inherit;
+	line-height: inherit;
+	border: 1px solid #ccc;
+	-webkit-border-radius: 3px;
+}
+.formConnect input[type="text"]:focus,
+.formConnect input[type="password"]:focus { z-index: 2; }
+.formConnect input[type="text"] { margin-bottom: -1px; border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+.formConnect input[type="password"] { margin-bottom: 10px; border-top-left-radius: 0; border-top-right-radius: 0; }
 
 
 /* **************** */
@@ -213,6 +246,18 @@ div.centre {
 		right:0;
 		bottom:0;
 		background-color:rgba(0,0,0,0.6)
+	}
+}
+
+@media only screen and (max-width: 450px) {
+	/* Page Authentification */
+	/* ********************* */
+	div.centre { 
+		width: 300px; 
+		margin-left: -167px; 
+		margin-top: -167px;
+		border: 0px #000 solid;
+		background-color: rgba(0, 0, 0, 0.0);;
 	}
 }
 

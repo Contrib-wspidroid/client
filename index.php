@@ -31,6 +31,8 @@ echo '
 		<title>WsPiDroid</title>
 		<meta name="description" content="">
 		<meta name="author" content="Dominique">
+		<meta http-equiv="Pragma" content="private">
+    <meta http-equiv="Cache-Control" content="private">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0" />
 		<link href="http://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" type="text/css">
@@ -40,6 +42,10 @@ echo '
 		<!--[if lt IE 9]>
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
+		<!--
+		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+		-->
 	</head>
 	<body>';
 
@@ -111,12 +117,12 @@ if ($connect == "1") {
 		echo '
 			<div class="divopaque">
 				<div class="centre">
-				<div class="titre">Veuillez vous identifier pour accéder au site :</div>
+				<div class="titre">Veuillez vous identifier</div>
 	 
-				<form action="index.php" method="post">
-					<div class="divlabel"><label>Votre login : </label></div><div class="divinput"><input type="text" name="login"/></div>
-					<div class="divlabel"><label>Votre mot de passe : </label></div><div class="divinput"><input type="password" name="mot_de_passe"/></div>
-					<div class="btn_center"><input type="submit" value="Valider"/></div>';
+				<form class="formConnect" action="index.php" method="post">
+					<div class="divinput"><input type="text" name="login" autocomplete="off" value="" placeholder="Nom d\'utilisateur" /></div>
+					<div class="divinput"><input type="password" name="mot_de_passe"  autocomplete="off" value="" placeholder="Mot de passe" /></div>
+					<div class="btn_center"><input class="btnConnect" type="submit" value="Valider"/></div>';
 		if ($erreur == 1) echo '<div class="diverreur">Erreur de Login ou Mot de passe lors de votre identification !</div>';
 		echo'
 				</form>
