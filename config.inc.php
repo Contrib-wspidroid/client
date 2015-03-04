@@ -16,7 +16,7 @@ $Token = 'DP37TFJTXXX';
 $lireEtat = 1;
 
 /* Authentification */
-$AutoConnect = 0;
+$AutoConnect = 1;
 $login = 'domi';
 $pwd = 'test';
 

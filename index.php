@@ -80,7 +80,10 @@ if ($connect == "1") {
 				<a href="?page=objet">Objets</a>
 				<a href="?page=configuration">Configuration</a>
 			</nav>
-			<a href="" onclick="<?php $_SESSION['connect'] = 0; ?>" class="icoDeconnect"><i class="icoDeconnect fa fa-sign-out fa-2x"></i></a>
+			<?php 
+				if ($AutoConnect != "1") { ?>
+					<a href="" onclick="<?php $_SESSION['connect'] = 0; ?>" class="icoDeconnect"><i class="icoDeconnect fa fa-sign-out fa-2x"></i></a>
+				<?php } ?>
 		</header>
 		
 		<div class="site-pusher">
