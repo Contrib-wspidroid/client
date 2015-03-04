@@ -31,14 +31,14 @@ echo '
 		<title>WsPiDroid</title>
 		<meta name="description" content="">
 		<meta name="author" content="Dominique">
-		<meta http-equiv="Pragma" content="private">
-    <meta http-equiv="Cache-Control" content="private">
+		<meta http-equiv="Pragma" content="no-cache">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0" />
-		<link href="http://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+		<link href="http://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" type="text/css" />
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<script src="js/wspidroid.js"></script>
-		<link rel="stylesheet" type="text/css" href="style/style.css" media="screen">
+		<link rel="stylesheet" type="text/css" href="style/style.css" media="screen" />
 		<!--[if lt IE 9]>
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -80,6 +80,7 @@ if ($connect == "1") {
 				<a href="?page=objet">Objets</a>
 				<a href="?page=configuration">Configuration</a>
 			</nav>
+			<a href="" onclick="<?php $_SESSION['connect'] = 0; ?>" class="icoDeconnect"><i class="icoDeconnect fa fa-sign-out fa-2x"></i></a>
 		</header>
 		
 		<div class="site-pusher">

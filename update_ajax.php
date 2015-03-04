@@ -7,7 +7,7 @@ $MAJ_NOOK = $Col_NOOk."Erreur lors de la mise à jour !";
 
 /* Déclaration du webService */
 	require("config.inc.php");
-	include('lib/nusoap.php');
+	include('lib/nusoap/nusoap.php');
 	ini_set("soap.wsdl_cache_enabled", "0");
 	$client = new nusoap_client($WS_adresse.'wspi.php?wsdl');
 

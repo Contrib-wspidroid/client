@@ -3,7 +3,7 @@
 /* Minimum necessaire 
 */
 // $Token = 'Votre_cle_personnalisée';
-// include('lib/nusoap.php');
+// include('lib/nusoap/nusoap.php');
 // ini_set("soap.wsdl_cache_enabled", "1");
 // $client = new nusoap_client('http://192.168.0.5/pidroid/wspi.php?wsdl');
 //
@@ -22,7 +22,7 @@ require("config.inc.php");
 $WS_OK = true;
 
 /* Déclaration du webService */
-include('lib/nusoap.php');
+include('lib/nusoap/nusoap.php');
 ini_set("soap.wsdl_cache_enabled", "0");
 $client = new nusoap_client($WS_adresse.'wspi.php?wsdl');
 
