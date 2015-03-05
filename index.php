@@ -118,6 +118,7 @@ if ($connect == "1") {
 	<?php
 	} else { 
 		/* Identification NON-OK, Affichage de la page de connexion */
+		include('include/header-id.php');
 		echo '
 			<div class="divopaque">
 				<div class="centre">
