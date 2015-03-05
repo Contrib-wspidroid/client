@@ -31,8 +31,8 @@ echo '
 		echo '
 			<div class="divchecked">Auto-connexion (pas de sécurité) : <input type="checkbox" id="AutoConnect" name="AutoConnect" value="1" '.($AutoConnect==1 ? ' checked ="checked "' :'').' /><br />&nbsp;</div>
 			<div>
-				<div class="divlabel"><label>Votre login : </label></div><div class="divinput"><input type="text" id="login" name="login" value="'.($login!="" ? $login :'').'" /></div>
-				<div class="divlabel"><label>Votre mot de passe : </label></div><div class="divinput"><input type="password" id="pwd" name="pwd" value="'.($pwd!="" ? $pwd :'').'" /></div>
+				<div class="divlabel"><label>Votre login : </label></div><div class="div_input"><input type="text" id="login" name="login" value="'.($login!="" ? $login :'').'" /></div>
+				<div class="divlabel"><label>Votre mot de passe : </label></div><div class="div_input"><input type="password" id="pwd" name="pwd" value="'.($pwd!="" ? $pwd :'').'" /></div>
 			</div>';
 		
 		echo '
