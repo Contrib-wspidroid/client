@@ -21,14 +21,14 @@ $MAJ_NOOK = $Col_NOOk."Erreur lors de la mise à jour !";
 /* Mise à jour du port GPIO */
 	if ($_POST['envoi'] == 'GPIO') {
 		$parametres = array('pin'=>$_POST['wiringpi'], 'valeur'=>$_POST['action'], 'cle' =>$_POST['token']);
-		echo $client->call('setPin', $parametres);
+		echo $client->call('gpio.setPin', $parametres);
 		return;
 	}
 	
 /* Envoi d'un commande psutil */
 	if ($_POST['envoi'] == 'psutil') {
 		$parametres = array('commande'=>$_POST['commande'], 'cle' =>$_POST['token']);
-		echo $client->call('setPsutil', $parametres);
+		echo $client->call('wspi.setPsutil', $parametres);
 		return;
 	}
 	

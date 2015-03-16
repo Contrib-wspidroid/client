@@ -9,11 +9,11 @@
 //
 // * Pour ecrire sur un pin :
 // $parametres = array('pin'=>1, 'valeur'=>0, 'cle' =>$Token);
-// echo $client->call('setPin', $parametres);
+// echo $client->call('wspi.setPin', $parametres);
 //
 // * Pour lire sur un pin :
 // $parametres = array('pin'=>$pin, 'cle' =>$Token);
-// echo $client->call('getPin', $parametres);
+// echo $client->call('wspi.getPin', $parametres);
 /* 
 Fin du minimum */
 
@@ -33,7 +33,7 @@ $client = new nusoap_client($WS_adresse.'wspi.php?wsdl');
 function clientEcritWeb($pin, $valeur) {
 	global $client, $Token;
 	$parametres = array('pin'=>$pin, 'valeur'=>$valeur, 'cle' =>$Token);
-	return $client->call('setPin', $parametres);
+	return $client->call('wspi.setPin', $parametres);
 }
 
 /* Fonction cliente permettant de lire l'état d'un port GPIO */
@@ -42,7 +42,7 @@ function clientEcritWeb($pin, $valeur) {
 function clientLitWeb($pin) {
 	global $client, $Token;
 	$parametres = array('pin'=>$pin, 'cle' =>$Token);
-	return $client->call('getPin', $parametres);
+	return $client->call('wspi.getPin', $parametres);
 }
 
 /* Fonction cliente utilisant un tableau en retour d'information */
@@ -51,7 +51,7 @@ function clientLitWeb($pin) {
 function listeMateriel($litEtat=0) {
 	global $client, $Token;
 	$parametres = array('cle' =>$Token, 'litEtat' =>$litEtat);
-	return $client->call('getMaterielTab', $parametres);
+	return $client->call('wspi.getMaterielTab', $parametres);
 }
 
 /* Fonction de clignotement aléatoire */
@@ -74,14 +74,14 @@ function noel() {
 function commande($commande) {
 	global $client, $Token;
 	$parametres = array('commande' =>$commande, 'cle' =>$Token);
-	return $client->call('setCommande', $parametres);
+	return $client->call('wspi.setCommande', $parametres);
 }
 
 /* Fonction qui interroge les températures et retourne un fichier XML */
 function temperature() {
 	global $client, $Token;
 	$parametres = array('cle' =>$Token);
-	return $client->call('get1WireXml', $parametres);
+	return $client->call('wspi.get1WireXml', $parametres);
 }
 
 /* Fonction qui interroge les températures et retourne un Tableau */
@@ -89,9 +89,8 @@ function temperature() {
 function temperatureTab() {
 	global $client, $Token;
 	$parametres = array('cle' =>$Token);
-	return $client->call('get1WireTab', $parametres);
+	return $client->call('wspi.get1WireTab', $parametres);
 }
-
 
 /* Script necessaire pour la partie qui interroge les GPIO Actifs */
 /* ************************************************************** */
@@ -214,6 +213,14 @@ if ($WS_OK) {
 /* ****************** Fin de Commande d'arrêt ********************** */
 /* ***************************************************************** */
 echo '</div>';
+
+/*
+// show soap request and response
+echo "<h2>Request</h2>";
+echo "<pre>" . htmlspecialchars($client->request, ENT_QUOTES) . "</pre>";
+echo "<h2>Response</h2>";
+echo "<pre>" . htmlspecialchars($client->response, ENT_QUOTES) . "</pre>";
+*/
 
 echo'
 	</body>
