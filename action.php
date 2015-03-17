@@ -9,11 +9,11 @@
 //
 // * Pour ecrire sur un pin :
 // $parametres = array('pin'=>1, 'valeur'=>0, 'cle' =>$Token);
-// echo $client->call('wspi.setPin', $parametres);
+// echo $client->call('gpio.setPin', $parametres);
 //
 // * Pour lire sur un pin :
 // $parametres = array('pin'=>$pin, 'cle' =>$Token);
-// echo $client->call('wspi.getPin', $parametres);
+// echo $client->call('gpio.getPin', $parametres);
 /* 
 Fin du minimum */
 
@@ -74,7 +74,7 @@ function noel() {
 function commande($commande) {
 	global $client, $Token;
 	$parametres = array('commande' =>$commande, 'cle' =>$Token);
-	return $client->call('wspi.setCommande', $parametres);
+	return $client->call('cmd.setCommande', $parametres);
 }
 
 /* Fonction qui interroge les températures et retourne un fichier XML */

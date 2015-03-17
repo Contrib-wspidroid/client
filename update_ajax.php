@@ -28,7 +28,7 @@ $MAJ_NOOK = $Col_NOOk."Erreur lors de la mise à jour !";
 /* Envoi d'un commande psutil */
 	if ($_POST['envoi'] == 'psutil') {
 		$parametres = array('commande'=>$_POST['commande'], 'cle' =>$_POST['token']);
-		echo $client->call('wspi.setPsutil', $parametres);
+		echo $client->call('cmd.setPsutil', $parametres);
 		return;
 	}
 	
