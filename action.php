@@ -9,11 +9,11 @@
 //
 // * Pour ecrire sur un pin :
 // $parametres = array('pin'=>1, 'valeur'=>0, 'cle' =>$Token);
-// echo $client->call('gpio.setPin', $parametres);
+// echo $client->call('setPin', $parametres);
 //
 // * Pour lire sur un pin :
 // $parametres = array('pin'=>$pin, 'cle' =>$Token);
-// echo $client->call('gpio.getPin', $parametres);
+// echo $client->call('getPin', $parametres);
 /* 
 Fin du minimum */
 
@@ -33,7 +33,7 @@ $client = new nusoap_client($WS_adresse.'wspi.php?wsdl');
 function clientEcritWeb($pin, $valeur) {
 	global $client, $Token;
 	$parametres = array('pin'=>$pin, 'valeur'=>$valeur, 'cle' =>$Token);
-	return $client->call('gpio.setPin', $parametres);
+	return $client->call('setPin', $parametres);
 }
 
 /* Fonction cliente permettant de lire l'état d'un port GPIO */
@@ -42,7 +42,7 @@ function clientEcritWeb($pin, $valeur) {
 function clientLitWeb($pin) {
 	global $client, $Token;
 	$parametres = array('pin'=>$pin, 'cle' =>$Token);
-	return $client->call('gpio.getPin', $parametres);
+	return $client->call('getPin', $parametres);
 }
 
 /* Fonction cliente utilisant un tableau en retour d'information */
@@ -51,7 +51,7 @@ function clientLitWeb($pin) {
 function listeMateriel($litEtat=0) {
 	global $client, $Token;
 	$parametres = array('cle' =>$Token, 'litEtat' =>$litEtat);
-	return $client->call('gpio.getMaterielTab', $parametres);
+	return $client->call('getMaterielTab', $parametres);
 }
 
 /* Fonction de clignotement aléatoire */
@@ -74,14 +74,14 @@ function noel() {
 function commande($commande) {
 	global $client, $Token;
 	$parametres = array('commande' =>$commande, 'cle' =>$Token);
-	return $client->call('cmd.setCommande', $parametres);
+	return $client->call('setCommande', $parametres);
 }
 
 /* Fonction qui interroge les températures et retourne un fichier XML */
 function temperature() {
 	global $client, $Token;
 	$parametres = array('cle' =>$Token);
-	return $client->call('wire.get1WireXml', $parametres);
+	return $client->call('get1WireXml', $parametres);
 }
 
 /* Fonction qui interroge les températures et retourne un Tableau */
@@ -89,7 +89,7 @@ function temperature() {
 function temperatureTab() {
 	global $client, $Token;
 	$parametres = array('cle' =>$Token);
-	return $client->call('wire.get1WireTab', $parametres);
+	return $client->call('get1WireTab', $parametres);
 }
 
 /* Script necessaire pour la partie qui interroge les GPIO Actifs */
