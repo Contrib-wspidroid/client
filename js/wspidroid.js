@@ -1,3 +1,19 @@
+/* Déconnexion de la session via Ajax */
+function deconnect(varLien) {
+	$.ajax({
+		type: 'POST',
+		async: false,
+		url: varLien,
+		data: 'action=deconnect',
+		success: function(msg){
+	  	window.location="./index.php";
+	 	},
+	 	error: function() {
+	 		alert('erreur');
+	 	}
+	});
+}
+
 /* Enregistrement des données de configuration dans le fichier config.inc.php */
 function majConfigInc(varLien, varObjID_msg) {
 	var varSecure_key =  document.getElementById('secure_key').value;

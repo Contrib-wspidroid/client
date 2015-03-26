@@ -1,4 +1,10 @@
 <?php
+// On interdit l'appel direct à cette page */
+if (basename($_SERVER['PHP_SELF']) != 'index.php' || !isset($_SESSION['connect']) || $_SESSION['connect'] == 0) { 
+	header('Location: ./index.php');
+	die();
+}
+
 
 /* Minimum necessaire 
 */

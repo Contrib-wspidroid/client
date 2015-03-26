@@ -32,7 +32,7 @@ echo '
 		<meta name="description" content="">
 		<meta name="author" content="Dominique">
 		<meta http-equiv="Pragma" content="no-cache">
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
 		<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0" />
 		<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
 		<link href="http://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" type="text/css" />
@@ -50,7 +50,7 @@ echo '
 	<body>';
 
 /* Affichage du contenu de la page principale si Identifié */    
-if ($connect == "1") {
+if ($connect == 1) {
 	/* Identification OK, Affichage du contenu de la page principale */
 ?>
 
@@ -81,9 +81,9 @@ if ($connect == "1") {
 				<a href="?page=configuration">Configuration</a>
 			</nav>
 			<?php 
-				if ($AutoConnect != "1") { ?>
-					<a href="" onclick="<?php $_SESSION['connect'] = 0; ?>" class="icoDeconnect"><i class="icoDeconnect fa fa-sign-out fa-2x"></i></a>
-				<?php } ?>
+				if ($AutoConnect != 1) { 
+					echo '<a href="" onclick="deconnect(\'update_ajax.php\');return false;" class="icoDeconnect"><i class="icoDeconnect fa fa-sign-out fa-2x"></i></a>';
+				} ?>
 		</header>
 		
 		<div class="site-pusher">
