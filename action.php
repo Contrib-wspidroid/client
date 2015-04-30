@@ -5,23 +5,9 @@ if (basename($_SERVER['PHP_SELF']) != 'index.php' || !isset($_SESSION['connect']
 	die();
 }
 
-
-/* Minimum necessaire 
-*/
-// $Token = 'Votre_cle_personnalisée';
-// include('lib/nusoap/nusoap.php');
-// ini_set("soap.wsdl_cache_enabled", "1");
-// $client = new nusoap_client('http://192.168.0.5/pidroid/wspi.php?wsdl');
-//
-// * Pour ecrire sur un pin :
-// $parametres = array('pin'=>1, 'valeur'=>0, 'cle' =>$Token);
-// echo $client->call('setPin', $parametres);
-//
-// * Pour lire sur un pin :
-// $parametres = array('pin'=>$pin, 'cle' =>$Token);
-// echo $client->call('getPin', $parametres);
-/* 
-Fin du minimum */
+/* Chargement en dynamique des classes à l'aide d'un autoloader */
+require 'classes/autoloader.php';
+autoloader::register();
 
 /* Initialisation des variables de configuration */
 require("config.inc.php");
@@ -32,47 +18,23 @@ include('lib/nusoap/nusoap.php');
 ini_set("soap.wsdl_cache_enabled", "0");
 $client = new nusoap_client($WS_adresse.'wspi.php?wsdl');
 
-	
-/* Fonction cliente permettant de changer l'état d'un port GPIO */
-/* Valeur envoyée : $pin = N° WiringPi : $valeur = 0 pour etteindre, 1 pour allumer */
-/* La valeur de retour est l'état réel : 0 (éteind), ou 1 (allumé), lu sur le GPIO après action demandée */
-function clientEcritWeb($pin, $valeur) {
-	global $client, $Token;
-	$parametres = array('pin'=>$pin, 'valeur'=>$valeur, 'cle' =>$Token);
-	return $client->call('setPin', $parametres);
-}
-
-/* Fonction cliente permettant de lire l'état d'un port GPIO */
-/* Valeur envoyée : $pin = N° WiringPi */
-/* La valeur de retour est l'état réel : 0 (éteind), ou 1 (allumé) */
-function clientLitWeb($pin) {
-	global $client, $Token;
-	$parametres = array('pin'=>$pin, 'cle' =>$Token);
-	return $client->call('getPin', $parametres);
-}
-
-/* Fonction cliente utilisant un tableau en retour d'information */
-/* Valeur envoyée : $litEtat = donne la valeur du GPIO oui (1) ou non (0) */
-/* La valeur de retour est un tableau contenant le numéro WiringPi, le nom du Gpio, et l'état si $litEtat = 1 */
-function listeMateriel($litEtat=0) {
-	global $client, $Token;
-	$parametres = array('cle' =>$Token, 'litEtat' =>$litEtat);
-	return $client->call('getMaterielTab', $parametres);
-}
 
 /* Fonction de clignotement aléatoire */
 function noel() {
+	global $client, $Token;
+	$interroge = new interro();
+	
 	for ($i = 1; $i <= 40; $i++) {
 		$aleatoire = rand(0, 7);
 		if ($aleatoire == 7) $aleatoire = 21;
-		$valeur = clientLitWeb($aleatoire);
+		$valeur = $interroge->litEtatGpio($client, $aleatoire, $Token);
 		if ($valeur == 0) $valeur = 1; else $valeur = 0;
-		clientEcritWeb($aleatoire, $valeur);
+		$interroge->changeEtatGpio($client, $aleatoire, $valeur, $Token);
 	}
 	
 	/* On eteind tout */
 	for ($i = 0; $i <= 7; $i++) {
-		clientEcritWeb($i, 0);
+		$interroge->changeEtatGpio($client, $i, 0, $Token);
 	}
 }
 
@@ -83,37 +45,22 @@ function commande($commande) {
 	return $client->call('setCommande', $parametres);
 }
 
-/* Fonction qui interroge les températures et retourne un fichier XML */
-function temperature() {
-	global $client, $Token;
-	$parametres = array('cle' =>$Token);
-	return $client->call('get1WireXml', $parametres);
-}
-
-/* Fonction qui interroge les températures et retourne un Tableau */
-/* La valeur de retour est un tableau contenant le nom du capteur, et la température en °C */
-function temperatureTab() {
-	global $client, $Token;
-	$parametres = array('cle' =>$Token);
-	return $client->call('get1WireTab', $parametres);
-}
-
 /* Script necessaire pour la partie qui interroge les GPIO Actifs */
 /* ************************************************************** */
 echo '<h1 class="titre1">Allumage et Extinction des ports GPIO</h1>';
-$materiels = listeMateriel($lireEtat); 
+$interroge = new interro();
+$materiels = $interroge->listeMaterielTab($client, $Token, $lireEtat); 
 if ($client->getError()) $WS_OK = false;
 echo '<div class="wrap">';
 if (is_array($materiels)) {
 	foreach ($materiels as $materiel) {
 		echo '<div class="donnees"><p class="titre_rel">'. $materiel['nom'] . '</p><p>WiringPi N° : '. $materiel['pin'] . '<br>';
 		if ($lireEtat == 1) {
-			// echo '<a href="?envoi=OK&wiringpi='.$materiel['pin'].'&action=';
-			echo '<a href="" onclick="majGPIO(\'update_ajax.php\', \''.$materiel['pin'].'\', \''.$Token.'\');return false;" ';
+			echo '<a href="" onclick="majGPIO(\'update_ajax.php\', \''.$materiel['pin'].'\', \'led_'.$materiel['pin'].'\', \'text\', \''.$Token.'\');return false;" id="led_'.$materiel['pin'].'" ';
 			if ($materiel['etat']==1) {
-				echo 'class="allume"><span id="led_'.$materiel['pin'].'" class="allume">Allumé</span>';
+				echo 'class="allume"><span class="allume">Allumé</span>';
 			} else {
-				echo 'class="eteind"><span id="led_'.$materiel['pin'].'" class="eteind">Eteind</span>';
+				echo 'class="eteind"><span class="eteind">Eteind</span>';
 			} 
 			echo '</a>';
 		}
@@ -130,7 +77,8 @@ echo '<p style="clear:both">&nbsp;</p><hr /><p>&nbsp;</p>';
 /* ***************** Relevé des températures ********************** */
 /* **************************************************************** */
 echo '<h1 class="titre1">Relevé des températures</h1>';
-if ($WS_OK) $releves = temperatureTab();
+$interroge = new interro();
+if ($WS_OK) $releves = $interroge->temperatureTab ($client, $Token);
 echo '<div class="wrap">';
 if (is_array($releves)) {
 	foreach ($releves as $releve) 

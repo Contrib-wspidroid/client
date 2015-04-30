@@ -1,3 +1,8 @@
+/* */
+function msgattente() {
+	$("#loader").show();
+}
+
 /* Déconnexion de la session via Ajax */
 function deconnect(varLien) {
 	$.ajax({
@@ -5,6 +10,7 @@ function deconnect(varLien) {
 		async: false,
 		url: varLien,
 		data: 'action=deconnect',
+		beforeSend: function() { $("#loader").show(); },
 		success: function(msg){
 	  	window.location="./index.php";
 	 	},
@@ -30,6 +36,7 @@ function majConfigInc(varLien, varObjID_msg) {
 		async: false,
 		url: varLien,
 		data: 'action=majConfig&secure_key='+varSecure_key + '&WS_adresse='+varWS_adresse + '&Token='+varToken + '&lireEtat='+varlireEtat + '&AutoConnect='+varAutoConnect + '&login='+varlogin + '&pwd='+varpwd,
+		beforeSend: function() { $("#loader").show(); },
 		success: function(msg){
 			/* msg est une chaine contenant : la couleur - le message */
 			var result = msg.split("-"); // Conversion de msg en tableau.
@@ -47,6 +54,7 @@ function majDonneesAjax(varLien, varAction, varObjID_msg, varSecure_key) {
 		async: false,
 		url: varLien,
 		data: 'action=' + varAction + '&ObjID_msg=' + varObjID_msg + '&secure_key=' + varSecure_key,
+		beforeSend: function() { $("#loader").show(); },
 		success: function(msg){
 			/* msg est une chaine contenant : la couleur - le message */
 			var result = msg.split("-"); // Conversion de msg en tableau.
@@ -58,27 +66,91 @@ function majDonneesAjax(varLien, varAction, varObjID_msg, varSecure_key) {
 }
 
 /* Action sur les GPIO via Ajax */
-function majGPIO(varLien, varWiringPi, varSecure_key) {
+function majGPIO(varLien, varWiringPi, varIDInfo, varIcon, varSecure_key) {
+	if (varIcon != 'text') {
+		/* Si on est pas en mode texte */
+		var reg = new RegExp("(')", "g");
+		var optequip = varIcon.replace(reg,'"');
+		optequip = JSON.parse(optequip);
+		var iconon = optequip.iconon;
+		var iconoff = optequip.iconoff;
+		var texton = optequip.texton;
+		var textoff = optequip.textoff;
+	}
+	
 	var varAction = 0;
-	var varEtat =  document.getElementById('led_'+varWiringPi).className;
-	if(varEtat == 'eteind') { varAction = 1; }
+	var varEtat =  document.getElementById(varIDInfo).className;
+	if(varEtat == 'eteind' || varEtat.substring(0,3) == 'off') { varAction = 1; } 
+
 	$.ajax({
 		type: 'POST',
 		async: false,
 		url: varLien,
 		data: 'envoi=GPIO&wiringpi='+varWiringPi+'&action='+varAction+'&token='+varSecure_key,
+		beforeSend: function() { $("#loader").show(); },
 		success: function(msg){
 	  	if (msg == 1) {
-	  		document.getElementById('led_'+varWiringPi).className = 'allume';
-	 			document.getElementById('led_'+varWiringPi).innerHTML = 'Allumé';
+				if (texton == null) { texton = 'Allumé'; }
+	  		if (varIcon != 'text') {
+					if (iconon == null) { iconon = 'jeedom-lumiere-on'; }
+					document.getElementById(varIDInfo).className = 'on icon '+iconon;
+					document.getElementById('info'+varIDInfo).innerHTML = texton;
+				} else {
+					document.getElementById(varIDInfo).className = 'allume';
+		 			document.getElementById(varIDInfo).innerHTML = texton;
+				}
 	 		} else {
-	 			document.getElementById('led_'+varWiringPi).className = 'eteind';
-	 			document.getElementById('led_'+varWiringPi).innerHTML = 'Eteind';
+				if (textoff == null) { textoff = 'Eteind'; }
+				if (varIcon != 'text') {
+					if (iconoff == null) { iconoff = 'jeedom-lumiere-off'; }
+					document.getElementById(varIDInfo).className = 'off icon '+iconoff;
+					document.getElementById('info'+varIDInfo).innerHTML = textoff;
+				} else {
+					document.getElementById(varIDInfo).className = 'eteind';
+					document.getElementById(varIDInfo).innerHTML = textoff;
+				}
 	 		}
 	 	},
 	 	error: function() {
 	 		alert('erreur');
-	 	}
+	 	},
+		complete: function() { $("#loader").fadeOut(); }
+	});
+}
+
+/* Demande un relevé de température */
+function maj1Wire(varLien, varNomWire, varIDRetour, varSecure_key) {
+	$.ajax({
+		type: 'POST',
+		async: false,
+		url: varLien,
+		data: 'envoi=Wire&nomwire='+varNomWire+'&token='+varSecure_key,
+		beforeSend: function() { $("#loader").show(); },
+		success: function(msg){
+			document.getElementById(varIDRetour).innerHTML = msg+' °C';
+		},
+	 	error: function() {
+	 		document.getElementById(varIDRetour).innerHTML = 'Erreur !';
+	 	},
+		complete: function() { $("#loader").fadeOut(); }
+	});
+}
+
+/* Demande d'envoi d'une commande RF433 */
+function setRF(varLien, varValCmd, varIDRetour, varSecure_key) {
+	$.ajax({
+		type: 'POST',
+		async: false,
+		url: varLien,
+		data: 'envoi=Wire&nomwire='+varNomWire+'&token='+varSecure_key,
+		beforeSend: function() { $("#loader").show(); },
+		success: function(msg){
+			document.getElementById(varIDRetour).innerHTML = msg+' °C';
+		},
+	 	error: function() {
+	 		document.getElementById(varIDRetour).innerHTML = 'Erreur !';
+	 	},
+		complete: function() { $("#loader").fadeOut(); }
 	});
 }
 
@@ -93,6 +165,7 @@ function psutil(varLien, varSecure_key) {
 		async: false,
 		url: varLien,
 		data: 'envoi=psutil&commande='+commande+'&token='+varSecure_key,
+		beforeSend: function() { $("#loader").show(); },
 		success: function(msg){
 			var temp = libelle.toLowerCase();
 			if(parseInt(msg) > 100000 && temp.indexOf("temps") == -1 && temp.indexOf("date") == -1) { 

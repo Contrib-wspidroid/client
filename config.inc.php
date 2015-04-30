@@ -11,8 +11,8 @@
 */
 
 /* Initialisation des variables */
-//$WS_adresse = 'http://192.168.0.5/pidroid/';
-$WS_adresse = 'http://localhost/dev/wspidroid/';
+$WS_adresse = 'http://192.168.0.5/pidroid/';
+//$WS_adresse = 'http://localhost/dev/wspidroid/';
 $Token = 'DP37TFJTXXX';
 $lireEtat = 1;
 

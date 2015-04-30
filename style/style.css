@@ -3,9 +3,9 @@
 /* ************ */
 html, body { font-family:Roboto; font-size:16px; line-height:1.4; height:100%; margin:0; padding:0 }
 a { text-decoration:none; color:inherit }
-.container { margin:0 20px; overflow:hidden; *zoom:1 }
-.site-content { padding-top:66px } 
-.header { position:fixed; left:0; right:0; height:66px; line-height:66px; color:#FFF; background-color:#303f9f }
+.container { margin:0 20px; overflow:hidden; padding-top: 15px; *zoom:1 }
+.site-content { padding-top:66px; padding-bottom: 66px;} 
+.header { z-index: 99997; position:fixed; left:0; right:0; height:66px; line-height:66px; color:#FFF; background-color:#303f9f }
 .header__logo { font-weight:bold; padding:0 25px; float:left; display: none; } 
 .menu { float:left; padding: 0 25px; }
 .menu a { padding:0 10px } 
@@ -16,8 +16,6 @@ footer {
 	bottom: 0;
 	left: 0;
 	right: 0;
-  text-align: center;
-  background: #b8b296;
   padding: 20px 0;
 }
 
@@ -93,7 +91,7 @@ p { font-size: 1em; }
 	margin: 0 auto;
 	/* left: 0; */
 	text-align: center;
-	z-index: 99999;
+	z-index: 99997;
 }
 
 /* Combo Psutil */
@@ -116,11 +114,45 @@ p { font-size: 1em; }
 	margin-top: 30px;
 }
 .element { clear: both; overflow: hidden; }
-.equip {
+.equipement {
 	display: block;
 	padding: 10px;
+	margin: 5px;
+	color: #FFF;
+	text-align: center;
+	font-weight: bold;
 	float: left;
+	height: 150px;
+	width: 160px;
 }
+.iconinfo { margin-top: 10px; margin-bottom: 10px; }
+.iconSel { font-size: 3em; }
+.iconValeur { font-size: 18px;}
+.equipGpio { background-color: rgb(243, 156, 18); }		/* Orange */
+.equipX10 { background-color: rgb(41, 128, 185); }		/* Bleu */
+.equipRF { background-color: rgb(116, 92, 176); }			/* Violet */
+.equipTemp { background-color: rgb(25, 188, 156); }		/* Vert */
+.equipAutre { background-color: rgb(128, 128, 128); } /* Gris */
+
+a.iconaction:link { text-decoration: none } /* Bouton de type grand icone */
+a.btnaction:link { text-decoration: none }	/* Petit bouton action type RF433 */
+
+.rf-groupe { display: block; width: 140px;overflow: hidden; padding: 0 25px; }
+.rf-icon { float: left; }
+.rf-grp-action { float: right; }
+.rf-action { 
+	margin: 4px 0; 
+	border: 2px solid white !important; 
+	background-color: transparent !important; 
+	color: white !important;
+	font-weight: bold !important;
+	-webkit-border-radius: 3px !important;
+	-moz-border-radius: 3px !important;
+	border-radius: 3px !important; 
+	min-width: 30px;
+}
+.rf-text { clear: both; }
+.rf-iconSel { }
 
 /* Page Authentification */
 /* ********************* */
@@ -187,6 +219,46 @@ i.icoDeconnect { margin-top: 17px; }
 .header_title { float: left; font-size: 42px; margin-left: 30px; margin-top:40px; }
 .header_bottom { background: url('../img/topbar.jpg') repeat-x scroll 0 0 rgba(0, 0, 0, 1); border-radius: 0.4rem; color: #fff; min-height: 30px; }
 
+/* Loader */
+/* ****** */
+#loader { 
+	display: none;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 99998;
+}
+#loader .overlay {
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	opacity: 0.4;
+	filter: alpha(opacity=40);
+	background-image: url(../img/greybackground.png);
+	background-repeat: repeat;
+	z-index: 99998;
+}
+#loader .img {
+	opacity: 2;
+	filter: alpha(opacity=200);
+	position: absolute;
+	font-size: 12em;
+	top: 35%;
+	left: 45%;
+	z-index: 99999;
+	border: none;
+	outline-style: none;
+}
+
+/* Info pied de page */
+/* ***************** */
+.piedpage { 
+	font-family: Helvetica, arial, sans-serif;
+	font-size: 14px;
+}
 
 /* **************** */
 /* Style responsive */
@@ -256,9 +328,10 @@ i.icoDeconnect { margin-top: 17px; }
 	}
 	.menu a { 
 		display:block;
-		height:40px;
+		/* height:40px; */
 		text-align:center;
-		line-height:40px;
+		/* line-height:40px; */
+		font-size: 1.2em;
 		border-bottom:1px solid #303f9f
 	}
 	.menu.is_active {
