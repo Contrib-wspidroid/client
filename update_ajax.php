@@ -45,5 +45,12 @@ if ($_POST['envoi'] == 'psutil') {
 	echo $client->call('setPsutil', $parametres);
 	return;
 }
+
+/* Envoi d'un commande RF433 */
+if ($_POST['envoi'] == 'rf433') {
+	$parametres = array('commande'=>$_POST['commande'], 'cle' =>$_POST['token'], 'equipement' =>$_POST['equipement']);
+	echo $client->call('setRF433dec', $parametres);
+	return;
+}
 	
 ?>

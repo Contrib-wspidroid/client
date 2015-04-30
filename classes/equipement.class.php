@@ -91,8 +91,8 @@ class equipement {
 		} else {
 			if ($this->iconoff == '') $this->iconoff = 'jeedom-lumiere-off';
 			$valHtml .= '<a href="" onclick="majGPIO(\'update_ajax.php\', \''.$this->equip['eq_code_equip'].'\', \'led_'.$this->equip['eq_code_equip'].'\', \''.$textjson.'\', \''.$this->Token.'\');return false;" class="iconaction">';
-			$valHtml .= '<i id="led_'.$this->equip['eq_code_equip'].'" class="off icon '.$this->iconoff.'"></i></a></span>'; // eteind
-			$valHtml .= '<br><span id="infoled_'.$this->equip['eq_code_equip'].'" class="iconValeur">'.($this->textoff!='' ?$this->textoff :'Eteind');
+			$valHtml .= '<i id="led_'.$this->equip['eq_code_equip'].'" class="off icon '.$this->iconoff.'"></i></a></span>'; // eteint
+			$valHtml .= '<br><span id="infoled_'.$this->equip['eq_code_equip'].'" class="iconValeur">'.($this->textoff!='' ?$this->textoff :'Eteint');
 		}
 		$valHtml .= '</span></div>';
 		/* On retourne la DIV */
@@ -123,26 +123,30 @@ class equipement {
 		/* Si icones d'action personnalisés, on les enregistre */
 		$actionon = $this->valEquip['actionon'];
 		$actionoff = $this->valEquip['actionoff'];
+		/* Modification des doubles quotes en \' pour envoi vers Javascript */
+		$textjson = preg_replace('/"/', '\\\'', $this->equip['eq_configuration']);
 		
 		/* Création du code HTML */
 		$valHtml = '<div class="equipement '.$this->dyncss.'">';
 		$valHtml .= $this->equip['eq_nom'].'<hr class="iconinfo">';
 		$valHtml .= '<div class="rf-groupe"><div class="rf-icon"><span class="iconSel">';
 		if ($this->equip['eq_valeur'] == 'on') { 
-			$valHtml .= '<i id="led_'.$this->equip['eq_code_equip'].'" class="icon '.($this->iconon!='' ?$this->iconon :'jeedom-lumiere-on').'"></i></span></div>'; // allumée
+			if ($this->iconon == '') $this->iconon = 'jeedom-lumiere-on';
+			$valHtml .= '<i id="rf_'.$this->equip['eq_code_equip'].'" class="icon '.$this->iconon.'"></i></span></div>'; // allumée
 		} else {
-			$valHtml .= '<i id="led_'.$this->equip['eq_code_equip'].'" class="icon '.($this->iconoff!='' ?$this->iconoff :'jeedom-lumiere-off').'"></i></span></div>'; // eteind
+			if ($this->iconoff == '') $this->iconoff = 'jeedom-lumiere-off';
+			$valHtml .= '<i id="rf_'.$this->equip['eq_code_equip'].'" class="icon '.$this->iconoff.'"></i></span></div>'; // eteint
 		}
 		$valHtml .= '<div class="rf-grp-action"><div class="rf-action"><span class="rf-iconSel">';
-		$valHtml .= '<a href="" onclick="return false;" class="btnaction"><i class="fa '.($actionon!='' ?$actionon :'fa-check').'"></i></a>';
+		$valHtml .= '<a href="" onclick="setRF(\'update_ajax.php\', \''.$this->valEquip['on'].'\', \''.$this->equip['eq_code_equip'].'\', \''.$this->equip['eq_code_equip'].'\', \''.$textjson.'\', \''.$this->Token.'\');return false;" class="btnaction"><i class="fa '.($actionon!='' ?$actionon :'fa-check').'"></i></a>';
 		$valHtml .= '</span></div>';
 		$valHtml .= '<div class="rf-action"><span class="rf-iconSel">';
-		$valHtml .= '<a href="" onclick="return false;" class="btnaction"><i class="fa '.($actionoff!='' ?$actionoff :'fa-times').'"></i></a>';
+		$valHtml .= '<a href="" onclick="setRF(\'update_ajax.php\', \''.$this->valEquip['off'].'\', \''.$this->equip['eq_code_equip'].'\', \''.$this->equip['eq_code_equip'].'\', \''.$textjson.'\', \''.$this->Token.'\');return false;" class="btnaction"><i class="fa '.($actionoff!='' ?$actionoff :'fa-times').'"></i></a>';
 		$valHtml .= '</span></div></div></div>';
 		if ($this->equip['eq_valeur'] == 'on') { 
 			$valHtml .= '<div class="rf-text"><span id="infoRf_'.$this->equip['eq_code_equip'].'" class="iconValeur">'.($this->texton!='' ?$this->texton :'Allumé').'</div>';
 		} else {
-			$valHtml .= '<div class="rf-text"><span id="infoRf_'.$this->equip['eq_code_equip'].'" class="iconValeur">'.($this->textoff!='' ?$this->textoff :'Eteind').'</div>';
+			$valHtml .= '<div class="rf-text"><span id="infoRf_'.$this->equip['eq_code_equip'].'" class="iconValeur">'.($this->textoff!='' ?$this->textoff :'Eteint').'</div>';
 		}
 		$valHtml .= '</span></div>';
 		

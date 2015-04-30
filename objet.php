@@ -95,7 +95,4 @@ if ($WS_OK) {
 }
 
 
-
-//echo base_convert('500015',16,10).'<br>'.  base_convert('500014', 16, 10);
-
 ?>

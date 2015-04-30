@@ -32,7 +32,7 @@ function noel() {
 		$interroge->changeEtatGpio($client, $aleatoire, $valeur, $Token);
 	}
 	
-	/* On eteind tout */
+	/* On eteint tout */
 	for ($i = 0; $i <= 7; $i++) {
 		$interroge->changeEtatGpio($client, $i, 0, $Token);
 	}
@@ -60,7 +60,7 @@ if (is_array($materiels)) {
 			if ($materiel['etat']==1) {
 				echo 'class="allume"><span class="allume">Allumé</span>';
 			} else {
-				echo 'class="eteind"><span class="eteind">Eteind</span>';
+				echo 'class="eteint"><span class="eteint">Eteint</span>';
 			} 
 			echo '</a>';
 		}

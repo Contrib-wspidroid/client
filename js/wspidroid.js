@@ -80,7 +80,7 @@ function majGPIO(varLien, varWiringPi, varIDInfo, varIcon, varSecure_key) {
 	
 	var varAction = 0;
 	var varEtat =  document.getElementById(varIDInfo).className;
-	if(varEtat == 'eteind' || varEtat.substring(0,3) == 'off') { varAction = 1; } 
+	if(varEtat == 'eteint' || varEtat.substring(0,3) == 'off') { varAction = 1; } 
 
 	$.ajax({
 		type: 'POST',
@@ -100,13 +100,13 @@ function majGPIO(varLien, varWiringPi, varIDInfo, varIcon, varSecure_key) {
 		 			document.getElementById(varIDInfo).innerHTML = texton;
 				}
 	 		} else {
-				if (textoff == null) { textoff = 'Eteind'; }
+				if (textoff == null) { textoff = 'Eteint'; }
 				if (varIcon != 'text') {
 					if (iconoff == null) { iconoff = 'jeedom-lumiere-off'; }
 					document.getElementById(varIDInfo).className = 'off icon '+iconoff;
 					document.getElementById('info'+varIDInfo).innerHTML = textoff;
 				} else {
-					document.getElementById(varIDInfo).className = 'eteind';
+					document.getElementById(varIDInfo).className = 'eteint';
 					document.getElementById(varIDInfo).innerHTML = textoff;
 				}
 	 		}
@@ -137,15 +137,38 @@ function maj1Wire(varLien, varNomWire, varIDRetour, varSecure_key) {
 }
 
 /* Demande d'envoi d'une commande RF433 */
-function setRF(varLien, varValCmd, varIDRetour, varSecure_key) {
+function setRF(varLien, varValCmd, varEquip, varIDRetour, varJson, varSecure_key) {
+	/* Récupération des données via JSON */
+	var reg = new RegExp("(')", "g");
+	var optequip = varJson.replace(reg,'"');
+	optequip = JSON.parse(optequip);
+	var iconon = optequip.iconon;
+	var iconoff = optequip.iconoff;
+	var texton = optequip.texton;
+	var textoff = optequip.textoff;
+
+	/* On execute la mise à jour */
 	$.ajax({
 		type: 'POST',
 		async: false,
 		url: varLien,
-		data: 'envoi=Wire&nomwire='+varNomWire+'&token='+varSecure_key,
+		data: 'envoi=rf433&commande='+varValCmd+'&token='+varSecure_key+'&equipement='+varEquip,
 		beforeSend: function() { $("#loader").show(); },
-		success: function(msg){
-			document.getElementById(varIDRetour).innerHTML = msg+' °C';
+		success: function(msg){ 
+			var result = msg.split(" ");	/* Conversion de msg en tableau */
+			if (result[0] == 'sending') { /* Retour OK */
+				if (result[3] == 'on') {			/* Action d'allumage */
+					if (iconon == null) { iconon = 'jeedom-lumiere-on'; }
+					if (texton == null) { texton = 'Allumé'; }
+					document.getElementById('rf_'+varIDRetour).className = 'icon '+iconon;
+					document.getElementById('infoRf_'+varIDRetour).innerHTML = texton;
+				} else {											/* Action d'extinction */
+					if (iconoff == null) { iconoff = 'jeedom-lumiere-off'; }
+					if (textoff == null) { textoff = 'Eteint'; }
+					document.getElementById('rf_'+varIDRetour).className = 'icon '+iconoff;
+					document.getElementById('infoRf_'+varIDRetour).innerHTML = textoff;
+				} 
+			}
 		},
 	 	error: function() {
 	 		document.getElementById(varIDRetour).innerHTML = 'Erreur !';

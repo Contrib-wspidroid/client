@@ -23,6 +23,7 @@ class interro {
 	/* ******************************************* */
 	/**
 	 * Fonction qui fait une simple interrogation au Web-Service afin de vérifier qu'il est accessible
+	 * ***********************************************************************************************
 	 * @param type soap $client			= nusoap_client
 	 * @param type string $Token		= Clé de sécurité
 	 * @return type string					= 'ok' si le web-service répond correctement.
@@ -36,6 +37,7 @@ class interro {
 	/* ************************************************************ */
 	/**
 	 * Fonction cliente permettant de changer l'état d'un port GPIO
+	 * ************************************************************
 	 * @param type soap $client			= nusoap_client
 	 * @param type integer $pin			= N° WiringPi
 	 * @param type integer $valeur	= 0 pour etteindre, 1 pour allumer
@@ -48,6 +50,7 @@ class interro {
 	}
 	/**
 	 * Fonction cliente permettant de lire l'état d'un port GPIO
+	 * *********************************************************
 	 * @param type soap $client			= nusoap_client
 	 * @param type integer $pin			= N° WiringPi
 	 * @param type string $Token		= Clé de sécurité
@@ -64,6 +67,7 @@ class interro {
 	/* ***************************************** */
 	/** 
 	 * Fonction qui interroge les températures et retourne un Tableau de tous les 1-wire
+	 * *********************************************************************************
 	 * @param type soap $client			= nusoap_client
 	 * @param type string $Token		= Clé de sécurité
 	 * @return type array						= Tableau contenant le nom du capteur, et la température en °C
@@ -74,6 +78,7 @@ class interro {
 	}
 	/**
 	 * Fonction cliente utilisant un tableau en retour d'information
+	 * *************************************************************
 	 * @param type soap $client			= nusoap_client
 	 * @param type string $Token		= Clé de sécurité
 	 * @param type $litEtat					= Lit l'état du Gpio après action et retourne résultat (1 = oui, 0 = pas de lecture)
@@ -90,6 +95,7 @@ class interro {
 	/* ********************************************* */
 	/** 
 	 * Fonction qui interroge les températures et retourne un fichier XML
+	 * ******************************************************************
 	 * @param type soap $client			= nusoap_client
 	 * @param type string $Token		= Clé de sécurité
 	 * @return type XML							= XML contenant le Nom, le N° WiringPi et l'état du Gpio si $litEtat = 1
@@ -106,6 +112,7 @@ class interro {
 	/* *********************** */
 	/**
 	 * Fonction qui permet d'exécuter une requete sur le Web-Service
+	 * *************************************************************
 	 * @param type soap $client			= nusoap_client
 	 * @param type string $requete	= Le requete à executer.
 	 * @param type string $Token		= Clé de sécurité
